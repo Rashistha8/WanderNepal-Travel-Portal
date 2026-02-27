@@ -14,8 +14,7 @@ def seed_data():
         admin.set_password('admin123')
         db.session.add(admin)
         
-        # 25+ PREMIUM NEPAL DESTINATIONS
-        nepal_destinations = [
+        destinations = [
             Destination(name="Kathmandu Durbar Square", location="Kathmandu", price=45000, category="History", rating=4.8, 
                        description="UNESCO World Heritage site with ancient palaces, temples and vibrant street life.", 
                        image="images/kathmanduDurbar.jpeg"),
@@ -77,7 +76,7 @@ def seed_data():
                        image="images/swayambhu.jpg"),
         ]
         
-        for dest in nepal_destinations:
+        for dest in destinations:
             db.session.add(dest)
         
         db.session.commit()
