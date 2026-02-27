@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Book {{ destination.name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-6 py-12">
+    <div class="bg-white shadow-xl rounded-3xl p-10">
+        <h1 class="text-3xl font-bold mb-6">Book Your Trip to {{ destination.name }}</h1>
+
+        <form method="POST" class="space-y-6">
+            <!-- Travel Date -->
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">Travel Date</label>
+                <input type="date" name="travel_date" required
+                       class="w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+            <!-- Payment Method -->
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">Payment Method</label>
+                <select name="payment_method" required
+                        class="w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
+                    <option value="credit_card">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                </select>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition">
+                Confirm Booking & Pay Rs. {{ "{:,.0f}".format(destination.price) }}
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

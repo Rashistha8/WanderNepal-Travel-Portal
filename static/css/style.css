@@ -1,0 +1,125 @@
+/* Wanderlust Premium Animations */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Smooth Hover Effects */
+.group:hover .group-hover\:scale-105 {
+    transform: scale(1.05);
+}
+
+.group:hover .group-hover-translate-y {
+    transform: translateY(-10px);
+}
+
+/* Floating Animation */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.float-animation {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse Button */
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+    }
+}
+
+.pulse-glow {
+    animation: pulse-glow 2s infinite;
+}
+
+/* Hero Text Reveal */
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: slide-up 0.8s ease-out forwards;
+}
+
+/* Navbar Smooth Scroll */
+.navbar-link {
+    position: relative;
+}
+
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    transition: width 0.3s ease;
+}
+
+.navbar-link:hover::after {
+    width: 100%;
+}
+
+/* Card Hover Glow */
+.card-glow {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-glow:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Loading Skeleton */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

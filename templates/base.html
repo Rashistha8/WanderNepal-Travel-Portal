@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}WanderNepal Travel Portal{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo.png') }}">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- NEW WANDERLUST NAVBAR -->
+    <nav class="bg-white border-b sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-12">
+                <a href="{{ url_for('home') }}" class="text-2xl font-bold text-blue-700 italic hover:scale-105 transition">Wanderlust</a>
+                <div class="hidden md:flex space-x-8 text-gray-500 font-medium text-sm">
+                    <a href="{{ url_for('home') }}" class="hover:text-blue-600 transition">Home</a>
+                    <a href="{{ url_for('destinations') }}" class="text-blue-600 border-b-2 border-blue-600 pb-1">Destinations</a>
+                    <a href="{{ url_for('packages') }}" class="hover:text-blue-600 transition">Packages</a>
+                    <a href="{{ url_for('contact') }}" class="hover:text-blue-600 transition">Contact</a>
+                  
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                {% if session.user_id %}
+                    {% if session.role == 'admin' %}
+                    <a href="{{ url_for('admin_index') }}" class="px-4 py-2 bg-orange-500 text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition">Admin</a>
+                    {% endif %}
+                    <span class="text-sm text-gray-700 font-medium">{{ session.username }}</span>
+                    <a href="{{ url_for('dashboard') }}" class="text-blue-600 hover:text-blue-700 font-semibold">Dashboard</a>
+                    <a href="{{ url_for('logout') }}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="text-gray-600 hover:text-blue-600 font-semibold">Login</a>
+                    <a href="{{ url_for('register') }}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">Register</a>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden">
+            <div class="px-6 pb-4 border-t border-gray-200">
+                <a href="{{ url_for('home') }}" class="block py-2 text-gray-500 hover:text-blue-600">Home</a>
+                <a href="{{ url_for('destinations') }}" class="block py-2 text-blue-600 font-semibold">Destinations</a>
+                <a href="{{ url_for('packages') }}" class="block py-2 text-gray-500 hover:text-blue-600">Packages</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="bg-blue-50 border border-blue-200 text-blue-800 px-6 py-4 rounded-2xl max-w-2xl mx-auto">
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    <!-- WANDERLUST FOOTER -->
+    <footer class="bg-[#0f172a] text-gray-400 py-16 mt-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div>
+                <h3 class="text-white text-xl font-bold mb-4 italic">Wanderlust</h3>
+                <p class="text-sm leading-relaxed mb-6">Connecting travelers with authentic local experiences. Discover the beauty of our planet.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-xs text-white hover:bg-blue-600 transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-xs text-white hover:bg-pink-600 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-xs text-white hover:bg-blue-600 transition"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Quick Links</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="{{ url_for('home') }}" class="hover:text-white transition">Home</a></li>
+                    <li><a href="{{ url_for('destinations') }}" class="hover:text-white transition">Destinations</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="hover:text-white transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Support</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+                    <li><a href="#" class="hover:text-white transition">Safety Information</a></li>
+                    <li><a href="#" class="hover:text-white transition">Cancellation Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Stay Connected</h4>
+                <p class="text-sm mb-4">Get weekly travel inspiration.</p>
+                <div class="flex">
+                    <input type="email" placeholder="your@email.com" class="flex-1 bg-gray-800 border border-gray-700 rounded-l-lg px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-r-lg text-white font-semibold transition">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
+            © 2026 Wanderlust Travel Portal. All rights reserved. | Academic Project by Rashi Stha
+        </div>
+    </footer>
+</body>
+</html>

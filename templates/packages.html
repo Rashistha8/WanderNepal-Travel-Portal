@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-8 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-8">Travel Packages</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for dest in destinations %}
+        <div class="bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all">
+            <h3 class="text-2xl font-bold mb-4">{{ dest.name }}</h3>
+            <p class="text-gray-600 mb-4">{{ dest.description[:100] }}...</p>
+            <div class="text-3xl font-bold text-blue-600 mb-6">Rs. {{ "{:,.0f}".format(dest.price) }}</div>
+            <a href="{{ url_for('destinations') }}" class="block w-full bg-blue-600 text-white text-center py-4 rounded-2xl font-bold hover:bg-blue-700 transition">View Details</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

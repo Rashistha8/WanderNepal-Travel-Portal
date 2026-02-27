@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>All Users</h2>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{{ url_for('home') }}">Back to Home</a>
+
+</body>
+</html>

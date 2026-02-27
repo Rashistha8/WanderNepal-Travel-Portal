@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Bookings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>All Bookings</h2>
+
+<!-- Filter Form -->
+<form method="get" action="{{ url_for('admin_bookings') }}">
+    <label for="status">Filter by status:</label>
+    <select name="status" id="status" onchange="this.form.submit()">
+        <option value="all" {% if status_filter == 'all' %}selected{% endif %}>All</option>
+        <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+        <option value="confirmed" {% if status_filter == 'confirmed' %}selected{% endif %}>Confirmed</option>
+    </select>
+</form>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Booking ID</th>
+        <th>User</th>
+        <th>Destination</th>
+        <th>Travel Date</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for booking in bookings %}
+    <tr>
+        <td>{{ booking.id }}</td>
+        <td>{{ booking.user.username }}</td>
+        <td>{{ booking.destination.name }}</td>
+        <td>{{ booking.travel_date }}</td>
+        <td>{{ booking.status }}</td>
+        <td>{{ booking.date_created }}</td>
+        <td>
+            {% if booking.status == 'pending' %}
+                <form method="post" action="{{ url_for('admin_confirm_booking', booking_id=booking.id) }}">
+                    <button type="submit">Simulate Payment / Confirm</button>
+                </form>
+            {% else %}
+                Confirmed
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{{ url_for('home') }}">Back to Home</a>
+
+</body>
+</html>

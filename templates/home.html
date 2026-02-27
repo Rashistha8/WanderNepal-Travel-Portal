@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-screen overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+    <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+    <div class="relative z-10 flex items-center justify-center h-screen text-white px-6">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            <div class="inline-flex bg-white/20 backdrop-blur-xl px-8 py-4 rounded-3xl border border-white/30">
+                <i class="fas fa-crown text-yellow-400 mr-3 text-2xl"></i>
+                <span class="text-lg font-bold uppercase tracking-widest">25+ Nepal Destinations</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-light leading-tight">
+                Discover <span class="block font-bold text-6xl md:text-8xl bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Nepal</span>
+            </h1>
+            <p class="text-xl md:text-2xl max-w-2xl mx-auto">Premium travel experiences from Everest Base Camp to serene lakes.</p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="{{ url_for('destinations') }}" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-12 py-6 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 transition-all">Explore Destinations</a>
+                <a href="#showcase" class="border-2 border-white/50 hover:border-white text-white px-12 py-6 rounded-3xl font-bold hover:bg-white/10 transition-all">Watch Showcase</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="group cursor-pointer">
+            <h2 class="text-5xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition">25+</h2>
+            <p class="text-sm uppercase tracking-widest text-gray-500 font-bold">Destinations</p>
+        </div>
+        <div class="group cursor-pointer">
+            <h2 class="text-5xl font-bold text-slate-900 mb-3 group-hover:text-green-600 transition">98.7%</h2>
+            <p class="text-sm uppercase tracking-widest text-gray-500 font-bold">Success Rate</p>
+        </div>
+        <div class="group cursor-pointer">
+            <h2 class="text-5xl font-bold text-slate-900 mb-3 group-hover:text-orange-600 transition">12K+</h2>
+            <p class="text-sm uppercase tracking-widest text-gray-500 font-bold">Happy Travelers</p>
+        </div>
+        <div class="group cursor-pointer">
+            <h2 class="text-5xl font-bold text-slate-900 mb-3 group-hover:text-purple-600 transition">500+</h2>
+            <p class="text-sm uppercase tracking-widest text-gray-500 font-bold">Local Guides</p>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Showcase -->
+<section id="showcase" class="py-32 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20">
+            <h2 class="text-5xl md:text-6xl font-bold text-slate-900 mb-6">Featured Collections</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Handpicked destinations showcasing Nepal's diverse beauty.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for dest in destinations %}
+            <a href="{{ url_for('destinations') }}?search={{ dest.name }}" class="group relative block rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-4 bg-white">
+                <div class="relative h-80">
+                    <img src="{{ url_for('static', filename=dest.image) if dest.image else url_for('static', filename='images/default.jpg') }}"
+                    alt="{{ dest.name }}"
+                    class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                    <span class="absolute top-6 left-6 bg-white/95 backdrop-blur-md text-black text-xs font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">{{ dest.category }}</span>
+                    <div class="absolute bottom-8 left-8 right-8 text-white">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span class="text-yellow-400 text-sm font-bold">{{ dest.rating }}</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">{{ dest.name }}</h3>
+                        <p class="opacity-90 text-sm">{{ dest.description[:80] }}...</p>
+                    </div>
+                </div>
+                <div class="p-8 text-center">
+                    <span class="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-bold px-6 py-3 rounded-2xl shadow-lg inline-block hover:shadow-xl transition-all">From Rs. {{ "{:,.0f}".format(dest.price) }}</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-24">
+            <a href="{{ url_for('destinations') }}" class="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-12 py-6 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl transition-all">
+                View All 25+ Destinations <i class="fas fa-arrow-right ml-3"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
